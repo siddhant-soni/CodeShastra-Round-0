@@ -19,9 +19,7 @@ class Answer(models.Model):
     answer=models.TextField(primary_key=True)
     no_of_upvotes=models.BigIntegerField()
     no_of_downvotes=models.BigIntegerField()
-
-
-
+    no_of_views=models.BigIntegerField()
 
 
 class Article(models.Model):
@@ -30,8 +28,12 @@ class Article(models.Model):
     content=models.TextField()
     no_of_upvotes=models.BigIntegerField()
     no_of_downvotes=models.BigIntegerField()
+    no_of_views=models.BigIntegerField()
+
 
 class Comment(models.Model):
     date=models.DateTimeField()
     content=models.TextField(primary_key=True)
     user=models.ForeignKey(User)
+    no_of_upvotes=models.BigIntegerField()
+    no_of_downvotes=models.BigIntegerField()
