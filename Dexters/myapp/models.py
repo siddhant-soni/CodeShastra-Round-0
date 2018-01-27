@@ -20,7 +20,7 @@ class Answer(models.Model):
     answer=models.TextField(primary_key=True)
     no_of_upvotes=models.BigIntegerField(null=True)
     no_of_downvotes=models.BigIntegerField(null=True)
-    user=models.ForeignKey(models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Article(models.Model):
@@ -30,7 +30,7 @@ class Article(models.Model):
     no_of_upvotes=models.BigIntegerField(null=True)
     no_of_downvotes=models.BigIntegerField(null=True)
     no_of_views=models.BigIntegerField(null=True)
-    user=models.ForeignKey(models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
