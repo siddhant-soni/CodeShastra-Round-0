@@ -38,7 +38,7 @@ class publish_article_form(forms.ModelForm):
 class profile_form(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ["first_name","last_name","email_ID"]
+        fields = []
 
 class registration_form(UserCreationForm):
 
@@ -48,12 +48,6 @@ class registration_form(UserCreationForm):
     # user.email_ID=forms.EmailField(label='Enter you email-ID', max_length=100)
     # user.user_name=forms.CharField(label='User Name')
     # user.password=forms.CharField(label='Enter password')
-    def __init__(self, *args, **kwargs):
-        super(registration_form, self).__init__(*args, **kwargs)
-        self.fields['username']
     class Meta:
         model = User
-        fields = ["username"]
-        helptexts = {
-                'username': ('Here is some help'),
-        }
+        fields = ["first_name","last_name","email","username","password"]

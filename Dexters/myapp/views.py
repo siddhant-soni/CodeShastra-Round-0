@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from .models import User, Question, Answer, Comment
 from .forms import ask_question_form, answer_question_form, comment_form, publish_article_form, registration_form, profile_form
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 # Create your views here.
+@login_required
 def ask_question(request):
     # if request.method == 'POST':
     #     ask_form = ask_question_form(request.POST)
@@ -23,7 +27,7 @@ def ask_question(request):
         question.save()
     context = {'ask_form':ask_form}
     return render(request, '',context)
-
+@login_required
 def answer_question(request):
     # if request.method == 'POST':
     #     answer_form = answer_question_form(request.POST)
@@ -46,7 +50,7 @@ def answer_question(request):
         answer.save()
     context = {'answer_form':answer_form}
     return render(request, '',context)
-
+@login_required
 def comment(request):
     # if request.method == 'POST':
     #     comment = comment_form(request.POST)
@@ -69,7 +73,7 @@ def comment(request):
         comments.save()
     context = {'comment_form':comment_form}
     return render(request, '',context)
-
+@login_required
 def publish_article(request):
     # if request.method == 'POST':
     #     publish_form = publish_article_form(request.POST)
@@ -125,3 +129,6 @@ def reg_form(request):
         'profile_form':user_profile_form,
     }
     return render(request, 'registration.html',context)
+def logout(request):
+    auth.logout(request)
+    return render(request, 'logout.html',context)

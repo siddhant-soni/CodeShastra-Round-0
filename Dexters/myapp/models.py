@@ -54,7 +54,7 @@ class Article(models.Model):
     no_of_views=models.BigIntegerField(null=True)
     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
     tags=models.ManyToManyField(tags)
-    
+
     def __str__(self):
         return self.title
 
@@ -79,5 +79,4 @@ class tags(models.Model):
     profile=models.ForeignKey(Profile, null=True)
 
     def __str__(self):
-        return self.topic
-
+        return self.topic    
