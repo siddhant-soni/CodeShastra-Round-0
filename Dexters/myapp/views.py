@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import User, Question, Answer, Comment
-from .forms import ask_question_form, answer_question_form, comment_form, publish_article_form, registration_form
+from .forms import ask_question_form, answer_question_form, comment_form, publish_article_form, registration_form, profile_form
 
 # Create your views here.
 def ask_question(request):
@@ -92,7 +92,7 @@ def publish_article(request):
         article = publish_form.save(commit="False")
         article.save()
     context = {'publish_form':publish_form}
-    return render(request, '',context)
+    return render(request, 'article.html',context)
 
 def reg_form(request):
     # if request_method == 'POST':
@@ -111,9 +111,17 @@ def reg_form(request):
     # else:
     #     registration_form = registration_form()
     # return render(request, '',{'registration_form':registration_form})
-    registration_form = registration_form(request.POST or None)
-    if registration_form.is_valid():
-        registered_user = registration_form.save(commit="False")
+    user_registration_form = registration_form(request.POST or None)
+    user_profile_form = profile_form(request.POST or None)
+    if user_registration_form.is_valid() and user_profile_form.is_valid():
+        registered_user = user_registration_form.save(commit="False")
         registered_user.save()
-    context = {'registration_form':registration_form}
-    return render(request, '',context)
+        registered_user.refresh_from_db()
+        user_profile_form = profile_form(request.POST, instance=user.profile)
+        user_profile_form.full_clean()
+        user_profile_form.save()
+    context = {
+        'registration_form':user_registration_form,
+        'profile_form':user_profile_form,
+    }
+    return render(request, 'registration.html',context)

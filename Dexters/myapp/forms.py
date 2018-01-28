@@ -1,5 +1,7 @@
 from django import forms
-from .models import User, Question, Answer, Comment, Article
+from .models import User, Question, Answer, Comment, Article, Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class ask_question_form(forms.ModelForm):
     # question = Question()
@@ -33,13 +35,25 @@ class publish_article_form(forms.ModelForm):
         model = Article
         fields = ["title","content"]
 
-class registration_form(forms.ModelForm):
+class profile_form(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["first_name","last_name","email_ID"]
+
+class registration_form(UserCreationForm):
+
     # user=User()
     # user.first_name=forms.CharField(label='Enter your first name')
     # user.last_name=forms.CharField(label='Enter your last name')
     # user.email_ID=forms.EmailField(label='Enter you email-ID', max_length=100)
     # user.user_name=forms.CharField(label='User Name')
     # user.password=forms.CharField(label='Enter password')
+    def __init__(self, *args, **kwargs):
+        super(registration_form, self).__init__(*args, **kwargs)
+        self.fields['username']
     class Meta:
         model = User
-        fields = ["first_name","last_name","email_ID","user_name","password"]
+        fields = ["username"]
+        helptexts = {
+                'username': ('Here is some help'),
+        }
