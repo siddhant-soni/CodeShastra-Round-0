@@ -1,4 +1,5 @@
 from django import forms
+from search import search_question, search_ articles
 from .models import User, Question, Answer, Comment, Article, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -39,6 +40,15 @@ class profile_form(forms.ModelForm):
     class Meta:
         model = Profile
         fields = []
+
+class search(forms.Form):
+    search_field=forms.TextField(label="Search")
+
+    for e in Article.objects.all():
+        search_articles(e)
+    for e in Question.objects.all():
+        search_questions(e)
+
 
 class registration_form(UserCreationForm):
 
