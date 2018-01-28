@@ -98,6 +98,14 @@ def publish_article(request):
     context = {'publish_form':publish_form}
     return render(request, 'article.html',context)
 
+def search(request):
+    html="<html><body>Search</body></html>"
+    return HttpResponse(html)
+
+def home(request):
+    ordered_tags = Tags.objects.order_by('-auto_increment_id')
+    return render(request, '', {count: 'ordered_tags'})
+
 def reg_form(request):
     # if request_method == 'POST':
     #     registration_form = registration_form(request.POST)
