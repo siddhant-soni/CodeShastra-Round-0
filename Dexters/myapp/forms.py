@@ -3,15 +3,14 @@ from .models import User, Question, Answer, Comment, Article, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+
 class ask_question_form(forms.ModelForm):
     # question = Question()
     # question.question = forms.TextField(label='Your Question')
     class Meta:
         model = Question
         fields = [
-            "question",
-            "user"
-        ]
+            "question"]
 
 class answer_question_form(forms.ModelForm):
     # answer = Answer()
@@ -40,6 +39,10 @@ class profile_form(forms.ModelForm):
         model = Profile
         fields = []
 
+
+
+
+
 class registration_form(UserCreationForm):
 
     # user=User()
@@ -50,4 +53,4 @@ class registration_form(UserCreationForm):
     # user.password=forms.CharField(label='Enter password')
     class Meta:
         model = User
-        fields = ["first_name","last_name","email","username","password"]
+        fields = ["first_name","last_name","email","username"]

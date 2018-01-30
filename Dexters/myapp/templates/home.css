@@ -1,0 +1,63 @@
+
+#first{
+	background-image: url("dexterslab.jpg");
+	background-size: 100% 100%;
+	padding-bottom:  13rem;
+	padding-top: 5rem; 
+	padding-left: 2rem;
+	padding-right: 15rem;
+	background-position: center center;
+	background-repeat: no-repeat; 
+
+}
+
+#logoutimg{
+	background-image: url("dexterslab.jpg");
+	background-size: 100% 95%;
+	background-position: center center;
+	background-repeat: no-repeat; 
+
+
+}
+
+#first-text{
+	background: rgba(0,0,0,0.6);
+	color:white;
+	padding: 2rem;
+
+}
+
+
+#back{
+	background: #222 url('stars.jpg') center center no-repeat;
+	background-size: cover;
+	
+}
+
+#about{
+	background-image: url("stars.jpg");
+	background-size: 100% 100%;
+	padding: 3rem; 
+	background-position: center center;
+	background-repeat: no-repeat; 
+}
+
+#about-text{
+	background: rgba(0,0,0,0.6);
+	color:white;
+	padding: 1rem;
+
+}
+
+#footer-main{
+	background: #222;
+	color:white;
+	font-size: 1.2rem;
+	position: fixed;
+	right: 0;
+	left: 0;
+	text-align: center;
+	bottom: 0;
+	padding:1rem;
+
+}

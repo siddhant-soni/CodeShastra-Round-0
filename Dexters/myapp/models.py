@@ -18,6 +18,14 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+class Tags(models.Model):
+    topic=models.CharField(max_length=50)
+    auto_increment_id=models.AutoField(primary_key=True)
+    profile=models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.topic
+
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
@@ -25,21 +33,20 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Question(models.Model):
     date=models.DateTimeField(auto_now=True)
-    question=models.TextField(primary_key=True)
+    question=models.CharField(primary_key=True, max_length=254)
     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
-    tags=models.ManyToManyField(tags)
+    tags=models.ManyToManyField(Tags)
 
     def __str__(self):
         return self.question
 
 class Answer(models.Model):
     date=DateTimeField(auto_now=True)
-    answer=models.TextField(primary_key=True)
-    question=models.OneToOneField(Question, on_delete=CASCADE)
+    answer=models.CharField(primary_key=True, max_length=254)
+    question=models.OneToOneField(Question, on_delete=models.CASCADE)
     no_of_upvotes=models.BigIntegerField(null=True)
     no_of_downvotes=models.BigIntegerField(null=True)
     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
-    tags=models.ManyToManyField(tags)
 
     def __str__(self):
         return self.answer
@@ -53,7 +60,7 @@ class Article(models.Model):
     no_of_downvotes=models.BigIntegerField(null=True)
     no_of_views=models.BigIntegerField(null=True)
     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
-    tags=models.ManyToManyField(tags)
+    tags=models.ManyToManyField(Tags)
 
     def __str__(self):
         return self.title
@@ -62,21 +69,12 @@ class Article(models.Model):
 
 class Comment(models.Model):
     date=models.DateTimeField(auto_now=True)
-    content=models.TextField(primary_key=True)
+    content=models.CharField(primary_key=True, max_length=254)
     profile=models.OneToOneField(Profile, on_delete=models.CASCADE)
     no_of_upvotes=models.BigIntegerField(null=True)
     no_of_downvotes=models.BigIntegerField(null=True)
-    answer=models.ForeignKey(Answer, on_delete=CASCADE)
-    article=models.ForeignKey(Article, on_delete=CASCADE)
-    tags=models.ManyToManyField(tags)
+    answer=models.ForeignKey(Answer, on_delete=models.CASCADE)
+    article=models.ForeignKey(Article, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.content
-
-class tags(models.Model):
-    topic=models.CharField(max_length=50)
-    auto_increment_id=models.AutoField(primary_key=True)
-    profile=models.ForeignKey(Profile, null=True)
-
-    def __str__(self):
-        return self.topic    
