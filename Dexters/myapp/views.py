@@ -10,19 +10,19 @@ from django.contrib import auth
 # def search_query(request):
 #
 
-def search(request):
+# def search(request):
+#
+#     search_me = search_form(request.POST or None)
+#     if search_me.is_valid():
+#         for e in Article.objects.all():
+#             l1=search_articles(e)
+#         for e in Question.objects.all():
+#             l2=search_questions(e)
 
-    search_me = search_form(request.POST or None)
-    if search_me.is_valid():
-        for e in Article.objects.all():
-            l1=search_articles(e)
-        for e in Question.objects.all():
-            l2=search_questions(e)
 
-
-def home(request):
-    ordered_tags = Tags.objects.order_by('-auto_increment_id')
-    return render(request, '', {count: 'ordered_tags'})
+# def home(request):
+#     ordered_tags = Tags.objects.order_by('-auto_increment_id')
+#     return render(request, '', {count: 'ordered_tags'})
 
 def reg_form(request):
     # if request_method == 'POST':
@@ -152,10 +152,42 @@ def publish_article(request):
         article.save()
     context = {'publish_form':publish_form}
     return render(request, 'article.html',context)
-@login_required(login_url='')
-def afterlogin(request):
-    # if request.user.is_authenticated():
-    context = {
-        'user_name': request.user.username,
-    }
-    return render(request, 'afterlogin.html', context)
+
+# def search(request):
+#     html="<html><body>Search</body></html>"
+#     return HttpResponse(html)
+#
+# def home(request):
+#     ordered_tags = Tags.objects.order_by('-auto_increment_id')
+#     return render(request, '', {count: 'ordered_tags'})
+
+# def reg_form(request):
+#     # if request_method == 'POST':
+#     #     registration_form = registration_form(request.POST)
+#     #     if registration_form.is_valid():
+#     #         user=registration_form.user
+#     #         user.save()
+#     #         context = {
+#     #             'first_name':user.first_name,
+#     #             'last_name':user.last_name,
+#     #             'email_ID':user.email_ID,
+#     #             'user_name':user.user_name,
+#     #             'password':user.password,
+#     #         }
+#     #         return render(request, '', context)
+#     # else:
+#     #     registration_form = registration_form()
+#     # return render(request, '',{'registration_form':registration_form})
+#     user_registration_form = registration_form(request.POST or None)
+#     user_profile_form = profile_form(request.POST or None)
+#     if user_registration_form.is_valid() and user_profile_form.is_valid():
+#         registered_user = user_registration_form.save(commit="False")
+#         registered_user.save()
+#         registered_user.refresh_from_db()
+#         user_profile_form = profile_form(request.POST, instance=user.profile)
+#         user_profile_form.full_clean()
+#         user_profile_form.save()
+#     context = {
+#         'user_name': request.user.username,
+#     }
+#     return render(request, 'afterlogin.html', context)
